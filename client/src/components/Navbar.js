@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img src="https://simplicity.mysmartjobboard.com/templates/SimplicityDND/assets/images/logo.svg" alt="logo"/>
           </a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,20 +15,19 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="/">Home
-                </a>
+                <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Available Jobs</a>
+                <Link className="nav-link" to="/jobs">Available Jobs</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Post Job</a>
+                <Link className="nav-link" to="/addjob">Post Job</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Log in</a>
+                <Link className="nav-link" to="/login">Log in</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Log out</a>
+                <Link className="nav-link" to="/">Log out</Link>
               </li>
             </ul>
           </div>

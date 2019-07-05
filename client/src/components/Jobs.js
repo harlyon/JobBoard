@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 class Jobs extends Component {
   render() {
     return (
-        <div>
-          <section className="our-faq bgc-fa mt25">
+        <section>
+          <section className="our-faq bgc-fa">
             <div className="container">
               <div className="row">
-              <div class="col-md-6 col-lg-6 mb20">
-                  <div class="candidate_job_alart_btn pjlv3">
-                    <h4 class="fz20 mb15">20 Candidates Found</h4>
+              <div class="col-md-6 col-lg-6">
+              <h1 className="justify-content-center">Available Jobs</h1>
+                  <div class="candidate_job_alart_btn pjlv3 mb10">
+                    <h4 class="fz20 mb15">20 Jobs Found</h4>
                     <a class="btn btn-thm" href="/"><span class="flaticon-mail"></span> Get Job Alerts</a>
                     <button class="btn btn-thm btns ml10 fr-xsd">Show Filter</button>
                   </div>
@@ -35,7 +36,7 @@ class Jobs extends Component {
               </div>
             </div>
           </section>
-        </div>
+        </section>
     );
   }
 }

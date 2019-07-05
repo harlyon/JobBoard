@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Login extends Component {
   render() {
     return (
-      <div>
+      <section style={{paddingTop: "170px"}}>
       <section className="our-log-reg bgc-fa">
         <div className="container">
           <div className="row justify-content-center">
@@ -12,7 +12,7 @@ class Login extends Component {
                 <form action="#">
                   <div className="heading">
                     <h3 className="text-center">Quick Login</h3>
-                    <p className="text-center">Don't have an account? <a className="text-thm" href="#">Sign Up!</a></p>
+                    <p className="text-center">Don't have an account? <a className="text-thm" href="/">Sign Up!</a></p>
                   </div>
                   <div className="form-group">
                     <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" />
@@ -23,7 +23,7 @@ class Login extends Component {
                   <div className="form-group form-check">
                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                     <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
-                    <a className="tdu text-thm float-right" href="#">Forgot Password?</a>
+                    <a className="tdu text-thm float-right" href="/">Forgot Password?</a>
                   </div>
                   <button type="submit" className="btn btn-log btn-block btn-thm">Login</button>
                   <hr />
@@ -39,7 +39,7 @@ class Login extends Component {
               </div>
             </div>
           </div></div></section>
-      </div>
+      </section>
     );
   }
 }

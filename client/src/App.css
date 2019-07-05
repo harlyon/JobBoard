@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;subset=vietnamese);
-
 body {
   background-attachment: fixed;
   color: #6d6d6d;
@@ -18,5 +17,9 @@ html {
 .nav-item {
   text-transform: uppercase;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: normal;
+}
+
+.bgc-fa {
+  background: #ffffff !important;
 }

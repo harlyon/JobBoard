@@ -15,8 +15,8 @@ app.use(
   })
 )
 
-const user = require('./routes/user')
-app.use('/user', user)
+const Users = require('./routes/user')
+app.use('/users', Users)
 
 const mongoURI = 'mongodb://harry:harry24680@ds133630.mlab.com:33630/testing'
 mongoose.connect(mongoURI, {useNewUrlParser: true})

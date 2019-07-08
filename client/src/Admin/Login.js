@@ -32,7 +32,7 @@ class Login extends Component {
 
   render() {
     return (
-      <section style={{ paddingTop: "170px" }}>
+      <section style={{ paddingTop: "85px" }}>
         <section className="our-log-reg bgc-fa">
           <div className="container">
             <div className="row justify-content-center">

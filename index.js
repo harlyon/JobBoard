@@ -7,6 +7,11 @@ const app = express();
 const port = process.env.Port || 9000
 
 
+const Users = require('./routes/user')
+const Jobs = require('./routes/job')
+
+app.use('/users', Users)
+app.use('/jobs', Jobs)
 app.use(bodyParser.json())
 app.use(cors())
 app.use(
@@ -14,9 +19,6 @@ app.use(
     extended: true
   })
 )
-
-const Users = require('./routes/user')
-app.use('/users', Users)
 
 const mongoURI = 'mongodb://harry:harry24680@ds133630.mlab.com:33630/testing'
 mongoose.connect(mongoURI, {useNewUrlParser: true})

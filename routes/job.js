@@ -1,154 +1,83 @@
 const express = require("express")
+const mongoose = require("mongoose");
 const router = express.Router()
-// const cors = require("cors")
-const multer = require("multer")
 const Job = require("../models/job")
 
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './uploads/');
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  },
-  fileFilter: fileFilter
-});
-
-router.get("/", (req, res, next) => {
+router.route('/').get((req, res) => {
   Job.find()
-    .select("company_name job_title _id jobImage job_description address deadline experience qualification skills salary city country")
-    .exec()
-    .then(docs => {
-      const response = {
-        count: docs.length,
-        jobs: docs.map(doc => {
-          return {
-            _id: doc._id,
-            company_name: doc.company_name,
-            job_title: doc.job_title,
-            jobImage: doc.productImage,
-            job_description: doc.job_description,
-            address: doc.address,
-            deadline: doc.deadline,
-            experience: doc.experience,
-            qualification: doc.qualification,
-            skills: doc.skills,
-            salary: doc.salary,
-            city: doc.city,
-            country: doc.country,
-            request: {
-              type: "GET",
-              url: "http://localhost:9000/jobs/" + doc._id
-            }
-          };
-        })
-      };
-      //   if (docs.length >= 0) {
-      res.status(200).json(response);
-      //   } else {
-      //       res.status(404).json({
-      //           message: 'No entries found'
-      //       });
-      //   }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+    .then(jobs => res.json(jobs))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.post("/", upload.single('jobImage'), (req, res, next) => {
-  const job = new Job({
-    _id: new mongoose.Types.ObjectId(),
-    company_name: req.body.company_name,
-    job_title: req.body.job_title,
-    jobImage: req.file.path,
-    job_description: req.body.job_description,
-    address: req.body.address,
-    deadline: req.body.deadline,
-    experience: req.body.experience,
-    qualification: req.body.qualification,
-    skills: req.body.skills,
-    salary: req.body.salary,
-    city: req.body.city,
-    country: req.body.country,
+router.route('/add').post((req, res) => {
+  _id = new mongoose.Types.ObjectId();
+  const company_name = req.body.company_name;
+  const email = req.body.email;
+  const job_title = req.body.job_title;
+  const job_description = req.body.job_description;
+  const address = req.body.address;
+  const deadline = req.body.deadline;
+  const experience = req.body.experience;
+  const qualification = req.body.qualification;
+  const skills = req.body.skills;
+  const salary = req.body.salary;
+  const city = req.body.city;
+  const country = req.body.country;
+  const date = Date.parse(req.body.date);
+
+  const newJob = new Job({
+    company_name,
+    email,
+    job_title,
+    job_description,
+    address,
+    deadline,
+    experience,
+    qualification,
+    skills,
+    salary,
+    city,
+    country,
   });
-  job
-    .save()
-    .then(result => {
-      console.log(result);
-      res.status(201).json({
-        message: "Created product successfully",
-        createdJob: {
-          _id: result._id,
-          company_name: result.company_name,
-          job_title: result.job_title,
-          jobImage: result.productImage,
-          job_description: result.job_description,
-          address: result.address,
-          deadline: result.deadline,
-          experience: result.experience,
-          qualification: result.qualification,
-          skills: result.skills,
-          salary: result.salary,
-          city: result.city,
-          country: result.country,
-            request: {
-                type: 'GET',
-                url: "http://localhost:9000/jobs/" + result._id
-            }
-        }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+
+  newJob.save()
+  .then(() => res.json('Job added!'))
+  .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.get("/:jobId", (req, res, next) => {
-  const id = req.params.jobId;
-  Job.findById(id)
-  .select("company_name job_title _id jobImage job_description address deadline experience qualification skills salary city country")
-    .exec()
-    .then(doc => {
-      console.log("From database", doc);
-      if (doc) {
-        res.status(200).json({
-            job: doc,
-            request: {
-                type: 'GET',
-                url: 'http://localhost:9000/jobs'
-            }
-        });
-      } else {
-        res
-          .status(404)
-          .json({ message: "No valid entry found for provided ID" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+router.route('/:id').get((req, res) => {
+  Job.findById(req.params.id)
+    .then(job => res.json(job))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/:id').delete((req, res) => {
+  Job.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Job deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/update/:id').post((req, res) => {
+  Exercise.findById(req.params.id)
+    .then(job => {
+      job.company_name = req.body.company_name;
+      job.email = req.body.email;
+      job.job_title = req.body.job_title;
+      job.job_description = req.body.job_description;
+      job.address = req.body.address;
+      job.deadline = req.body.deadline;
+      job.experience = req.body.experience;
+      job.qualification = req.body.qualification;
+      job.skills = req.body.skills;
+      job.salary = req.body.salary;
+      job.city = req.body.city;
+      job.country = req.body.country;
+
+      job.save()
+        .then(() => res.json('Job updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+module.exports = router;

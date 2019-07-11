@@ -14,3 +14,14 @@ export const login = user => {
       console.log(err);
     });
 };
+
+export const addJob = () => {
+  return axios
+    .get("http://localhost:9000/jobs")
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

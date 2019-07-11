@@ -23,7 +23,6 @@ router.route('/add').post((req, res) => {
   const salary = req.body.salary;
   const city = req.body.city;
   const country = req.body.country;
-  const date = Date.parse(req.body.date);
 
   const newJob = new Job({
     company_name,

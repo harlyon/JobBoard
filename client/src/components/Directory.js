@@ -10,7 +10,7 @@ class Directory extends Component {
             <div className="col-lg-12">
               <div className="ulockd-main-title">
                 <h3 className="mt0">Browse Local Jobs</h3>
-                <a className="text-thm float-right" href="#">Browse All Local Jobs</a>
+                <a className="text-thm float-right" href="/jobs">Browse All Local Jobs</a>
               </div>
             </div>
           </div>

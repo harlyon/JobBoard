@@ -15,9 +15,21 @@ export const login = user => {
     });
 };
 
-export const addJob = () => {
+export const allJob = () => {
   return axios
     .get("http://localhost:9000/jobs")
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const singleJob = () => {
+  const jobid = this.props.match.params.jobid;
+  return axios
+    .get(`http://localhost:9000/jobs/${jobid}`)
     .then(res => {
       return res.data;
     })
